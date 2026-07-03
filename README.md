@@ -106,7 +106,26 @@ Al crear o abrir un proyecto con esta extensión, estarán disponibles en la cat
 - **Salidas L5** → `LED Puerto %puerto Estado %estado`
 - **Motores L5** → servos Geek I2C
 - **OLED L5** → pantalla I2C
-- **Especiales L5** → (sin bloques por ahora)
+- **Especiales L5** → `Guardar mensaje`, `Decodificar mensaje`, `Mensaje decodificado` (código Morse por Botón A)
+
+### Especiales L5 — Mensaje en código Morse (supuestos de diseño)
+
+Los bloques de Morse (`blocks/smartteam5/mensaje.ts`) se implementaron sobre los siguientes
+supuestos, **pendientes de validar en hardware real**. Si alguno no es correcto, avisar para
+ajustarlo en una misión de corrección.
+
+1. **Botón A incorporado**: el sistema usa el Botón A de la micro:bit (`input.buttonIsPressed(Button.A)`),
+   no un puerto GPIO externo vía `Ext5Puerto`. Los bloques no llevan parámetro de puerto.
+2. **`Guardar mensaje`** está pensado para colocarse dentro de un bucle **"por siempre" (forever)**:
+   en cada vuelta detecta el flanco de pulsación/soltado y mide la duración para clasificarla
+   como punto (`p`, pulsación corta < 350 ms) o línea (`l`, pulsación larga).
+3. **`Decodificar mensaje`** se coloca en el mismo bucle "por siempre", después de `Guardar mensaje`:
+   si pasaron 2000 ms sin una pulsación nueva, busca el código acumulado en la tabla Morse
+   (a↔z) y agrega la letra al mensaje.
+4. **`Mensaje decodificado`** es un bloque redondo (reportero de texto) que devuelve el mensaje
+   acumulado y **lo vacía al leerlo**.
+
+Umbrales configurables en `mensaje.ts`: `UMBRAL_PUNTO_MS = 350`, `PAUSA_LETRA_MS = 2000`.
 
 ---
 

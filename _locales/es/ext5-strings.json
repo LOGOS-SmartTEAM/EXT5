@@ -19,5 +19,8 @@
     "ext5_smartteam5.led|block": "LED Puerto %puerto Estado %estado",
     "Ext5LedEstado|block": "Estado LED",
     "Ext5LedEstado.ON|block": "ON",
-    "Ext5LedEstado.OFF|block": "OFF"
+    "Ext5LedEstado.OFF|block": "OFF",
+    "ext5_smartteam5.ext5GuardarMensaje|block": "Guardar mensaje",
+    "ext5_smartteam5.ext5DecodificarMensaje|block": "Decodificar mensaje",
+    "ext5_smartteam5.ext5MensajeDecodificado|block": "Mensaje decodificado"
 }

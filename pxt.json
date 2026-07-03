@@ -18,6 +18,7 @@
         "blocks/smartteam5/LED.ts",
         "blocks/smartteam5/motores.ts",
         "blocks/smartteam5/oled.ts",
+        "blocks/smartteam5/mensaje.ts",
         "main.blocks",
         "README.md",
         "_locales/es/ext5-strings.json",
