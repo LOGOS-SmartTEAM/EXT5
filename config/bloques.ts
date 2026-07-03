@@ -9,24 +9,24 @@
  */
 
 const BLOQUES = {
-    botonComparar: {
-        color: "#00A4A6",
+    botonLeer: {
+        color: "#fcbb2b",
         iconoFa: "\\uf11c",
-        iconoArchivo: "icons/entradas/boton-compare.png",
+        iconoArchivo: "icons/entradas/boton-leer.png",
         categoria: "SMARTTEAM5",
         subcategoria: "Sensores L5",
-        blockId: "ext5_button_compare",
-        texto: "$reading $op $value",
+        blockId: "ext5_button_sensor",
+        texto: "BOTÓN en el puerto %puerto",
         weight: 0,
     },
-    ultrasonicDetecta: {
-        color: "#00A4A6",
+    ultrasonicLeer: {
+        color: "#fcbb2b",
         iconoFa: "\\uf1ce",
-        iconoArchivo: "icons/entradas/ultrasonic-detect.png",
+        iconoArchivo: "icons/entradas/ultrasonic-leer.png",
         categoria: "SMARTTEAM5",
         subcategoria: "Sensores L5",
-        blockId: "ext5_ultrasonic_detect",
-        texto: "$distancia detecta objeto %estado",
+        blockId: "ext5_ultrasonic_sensor",
+        texto: "Ultrasonido en el pin %puerto",
         weight: 0,
     },
     led: {
