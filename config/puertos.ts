@@ -1,8 +1,8 @@
 /**
- * PUERTOS GPIO SmartTEAM4 — referencia (no compilado)
+ * PUERTOS GPIO SmartTEAM5 — referencia (no compilado)
  *
  * Cada puerto expone dos pines físicos: Pin 1 (trig/señal) y Pin 2 (echo/señal única).
- * Los bloques muestran P1–P6; el mapeo a pines reales está en blocks/smartteam4/puertos.ts
+ * Los bloques muestran P1–P6; el mapeo a pines reales está en blocks/smartteam5/puertos.ts
  *
  * Regla de uso:
  * - Componente de 1 pin (LED, botón): usa SIEMPRE el Pin 2 del puerto.

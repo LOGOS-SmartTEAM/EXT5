@@ -1,14 +1,14 @@
 /**
- * CATEGORÍAS EDITABLES — SmartTEAM4 (referencia, no compilado)
+ * CATEGORÍAS EDITABLES — SmartTEAM5 (referencia, no compilado)
  */
 const CATEGORIAS: Record<CategoriaId, CategoriaConfig> = {
-    SMARTTEAM4: {
-        namespace: "ext4_smartteam4",
-        nombre: "SmartTEAM4",
+    SMARTTEAM5: {
+        namespace: "ext5_smartteam5",
+        nombre: "SmartTEAM5",
         color: "#1565C0",
         iconoFa: "\\uf135",
-        iconoArchivo: "icons/smartteam4/categoria.png",
+        iconoArchivo: "icons/smartteam5/categoria.png",
         weight: 90,
-        subcategorias: ["Variables", "Sensores", "Salidas", "Motores", "OLED"],
+        subcategorias: ["Sensores L5", "Salidas L5", "Motores L5", "OLED L5", "Especiales L5"],
     },
 };

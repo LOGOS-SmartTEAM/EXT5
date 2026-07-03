@@ -1,5 +1,5 @@
 // tests go here; this will not be compiled when this package is used as an extension.
 
-ext4_smartteam4.led(Ext4Puerto.P4, Ext4LedEstado.OFF)
+ext5_smartteam5.led(Ext5Puerto.P4, Ext5LedEstado.OFF)
 basic.pause(1000)
-ext4_smartteam4.led(Ext4Puerto.P4, Ext4LedEstado.ON)
+ext5_smartteam5.led(Ext5Puerto.P4, Ext5LedEstado.ON)

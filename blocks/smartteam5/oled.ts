@@ -1,9 +1,9 @@
 /**
- * Bloques pantalla OLED — SmartTEAM4 / subcategoría OLED
+ * Bloques pantalla OLED — SmartTEAM5 / subcategoría OLED L5
  * Origen: ICreateRobot block/Av_OLED.ts
  */
 //OLED模块
-enum Ext4OledFila {
+enum Ext5OledFila {
     //% block="0"
     F0 = 0,
     //% block="1"
@@ -16,7 +16,7 @@ enum Ext4OledFila {
     F4 = 4,
 }
 
-enum Ext4OledColumna {
+enum Ext5OledColumna {
     //% block="0"
     C0 = 0,
     //% block="1"
@@ -43,7 +43,7 @@ enum Ext4OledColumna {
     C11 = 11,
 }
 
-namespace ext4_smartteam4 {
+namespace ext5_smartteam5 {
     let _I2CAddr = 60;  // SSD1306 dirección I2C por defecto (0x3C)
     let _screen = pins.createBuffer(1025);
     let _buf2 = pins.createBuffer(2);
@@ -265,14 +265,14 @@ namespace ext4_smartteam4 {
      * @param fila fila de la OLED (0–4), eg: F0
      * @param columna columna de la OLED (0–11), eg: C0
      */
-    //% blockId=ext4_oled_show_text block="Escribir %texto en la fila %fila y columna %columna"
+    //% blockId=ext5_oled_show_text block="Escribir %texto en la fila %fila y columna %columna"
     //% parts=OLED12864_I2C trackArgs=0
     //% texto.defl="abc"
-    //% fila.defl=Ext4OledFila.F0
-    //% columna.defl=Ext4OledColumna.C0
-    //% group="OLED" color="#34c2eb" icon="\uf108"
+    //% fila.defl=Ext5OledFila.F0
+    //% columna.defl=Ext5OledColumna.C0
+    //% group="OLED L5" color="#34c2eb" icon="\uf108"
     //% weight=10 blockGap=10
-    export function showString(texto: string, fila: Ext4OledFila, columna: Ext4OledColumna, color: number = 1) {
+    export function showString(texto: string, fila: Ext5OledFila, columna: Ext5OledColumna, color: number = 1) {
         ensureOledInit()
         let oled_x = columna;
         let oled_y = fila;
@@ -305,9 +305,9 @@ namespace ext4_smartteam4 {
     /**
      * Borra todos los textos de la OLED I2C.
      */
-    //% blockId=ext4_oled_clear block="Borrar textos de la OLED en el pin IIC"
+    //% blockId=ext5_oled_clear block="Borrar textos de la OLED en el pin IIC"
     //% parts=OLED12864_I2C trackArgs=0
-    //% group="OLED" color="#34c2eb" icon="\uf108"
+    //% group="OLED L5" color="#34c2eb" icon="\uf108"
     //% weight=8 blockGap=10
     export function clear() {
         ensureOledInit()

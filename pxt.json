@@ -1,7 +1,7 @@
 {
-    "name": "ext4",
+    "name": "ext5",
     "version": "2.0.0",
-    "description": "SmartTEAM4",
+    "description": "SmartTEAM5",
     "license": "MIT",
     "dependencies": {
         "core": "*",
@@ -9,18 +9,17 @@
     },
     "files": [
         "main.ts",
-        "blocks/categorias/smartteam4.ts",
-        "blocks/smartteam4/cantidad.ts",
-        "blocks/smartteam4/puertos.ts",
-        "blocks/smartteam4/boton.ts",
-        "blocks/smartteam4/ultrasonic.ts",
-        "blocks/smartteam4/LED.ts",
-        "blocks/smartteam4/motores.ts",
-        "blocks/smartteam4/oled.ts",
+        "blocks/categorias/smartteam5.ts",
+        "blocks/smartteam5/puertos.ts",
+        "blocks/smartteam5/boton.ts",
+        "blocks/smartteam5/ultrasonic.ts",
+        "blocks/smartteam5/LED.ts",
+        "blocks/smartteam5/motores.ts",
+        "blocks/smartteam5/oled.ts",
         "main.blocks",
         "README.md",
-        "_locales/es/ext4-strings.json",
-        "_locales/es/ext4-jsdoc-strings.json"
+        "_locales/es/ext5-strings.json",
+        "_locales/es/ext5-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"

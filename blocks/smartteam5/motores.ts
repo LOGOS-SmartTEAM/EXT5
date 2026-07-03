@@ -1,4 +1,4 @@
-namespace ext4_smartteam4 {
+namespace ext5_smartteam5 {
 
     // ── Direcciones I2C de los motores ──────────────────────────────
     // Motor ROJO  = derecho  = caraddress1 (se niega internamente)
@@ -14,7 +14,7 @@ namespace ext4_smartteam4 {
 
     // ── Enums ────────────────────────────────────────────────────────
 
-    export enum Ext4MovimientoMotores {
+    export enum Ext5MovimientoMotores {
         //% block="Avanzar"
         Avanzar = 1,
         //% block="Retroceder"
@@ -27,7 +27,7 @@ namespace ext4_smartteam4 {
         Frenar = 5,
     }
 
-    export enum Ext4DireccionGiro {
+    export enum Ext5DireccionGiro {
         //% block="↰ Izquierda"
         Izquierda = 0,
         //% block="Derecha ↱"
@@ -64,19 +64,19 @@ namespace ext4_smartteam4 {
 
     // Convierte movimiento + velocidad a speeds para cada motor.
     function movimientoToSpeeds(
-        movimiento: Ext4MovimientoMotores,
+        movimiento: Ext5MovimientoMotores,
         velocidad: number
     ): { s1: number; s2: number } {
         switch (movimiento) {
-            case Ext4MovimientoMotores.Avanzar:
+            case Ext5MovimientoMotores.Avanzar:
                 return { s1: velocidad, s2: velocidad }
-            case Ext4MovimientoMotores.Retroceder:
+            case Ext5MovimientoMotores.Retroceder:
                 return { s1: -velocidad, s2: -velocidad }
-            case Ext4MovimientoMotores.GirarDerecha:
+            case Ext5MovimientoMotores.GirarDerecha:
                 return { s1: velocidad, s2: -velocidad }
-            case Ext4MovimientoMotores.GirarIzquierda:
+            case Ext5MovimientoMotores.GirarIzquierda:
                 return { s1: -velocidad, s2: velocidad }
-            case Ext4MovimientoMotores.Frenar:
+            case Ext5MovimientoMotores.Frenar:
                 return { s1: 0, s2: 0 }
             default:
                 const _exhaustiveCheck: never = movimiento
@@ -89,14 +89,14 @@ namespace ext4_smartteam4 {
     /**
      * Mueve los motores en la dirección indicada a la velocidad indicada.
      */
-    //% blockId=ext4_motor_move
+    //% blockId=ext5_motor_move
     //% block="Motores %movimiento || Velocidad %velocidad"
     //% movimiento.fieldEditor="gridpicker"
     //% velocidad.min=0 velocidad.max=100 velocidad.defl=50
     //% expandableArgumentMode="toggle"
-    //% group="Motores" color="#34c2eb" weight=90 blockGap=8
-    export function ext4MotoresMover(
-        movimiento: Ext4MovimientoMotores,
+    //% group="Motores L5" color="#34c2eb" weight=90 blockGap=8
+    export function ext5MotoresMover(
+        movimiento: Ext5MovimientoMotores,
         velocidad = 50
     ): void {
         const { s1, s2 } = movimientoToSpeeds(movimiento, velocidad)
@@ -106,14 +106,14 @@ namespace ext4_smartteam4 {
     /**
      * Gira el robot 90° a izquierda o derecha y frena automáticamente.
      */
-    //% blockId=ext4_motor_giro90
+    //% blockId=ext5_motor_giro90
     //% block="Girar a 90° %direccion"
     //% direccion.fieldEditor="gridpicker"
-    //% group="Motores" color="#34c2eb" weight=85 blockGap=8
-    export function girar90(direccion: Ext4DireccionGiro): void {
-        const mov = direccion === Ext4DireccionGiro.Izquierda
-            ? Ext4MovimientoMotores.GirarIzquierda
-            : Ext4MovimientoMotores.GirarDerecha
+    //% group="Motores L5" color="#34c2eb" weight=85 blockGap=8
+    export function girar90(direccion: Ext5DireccionGiro): void {
+        const mov = direccion === Ext5DireccionGiro.Izquierda
+            ? Ext5MovimientoMotores.GirarIzquierda
+            : Ext5MovimientoMotores.GirarDerecha
         const { s1, s2 } = movimientoToSpeeds(mov, 50)
         runDualMotors(s1, s2)
         basic.pause(TIEMPO_GIRO_90)
@@ -123,15 +123,15 @@ namespace ext4_smartteam4 {
     /**
      * Mueve el robot una distancia en centímetros y frena automáticamente.
      */
-    //% blockId=ext4_motor_cm
+    //% blockId=ext5_motor_cm
     //% block="Motores %movimiento por %cm cm || Velocidad %velocidad"
     //% movimiento.fieldEditor="gridpicker"
     //% cm.min=1 cm.max=500 cm.defl=10
     //% velocidad.min=0 velocidad.max=100 velocidad.defl=50
     //% expandableArgumentMode="toggle"
-    //% group="Motores" color="#34c2eb" weight=84 blockGap=8
+    //% group="Motores L5" color="#34c2eb" weight=84 blockGap=8
     export function moverCm(
-        movimiento: Ext4MovimientoMotores,
+        movimiento: Ext5MovimientoMotores,
         cm: number,
         velocidad = 50
     ): void {

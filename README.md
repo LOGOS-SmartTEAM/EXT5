@@ -1,6 +1,6 @@
-# EXT4 - SmartTEAM4
+# EXT5 - SmartTEAM5
 
-Extensión MakeCode para SmartTEAM4 (micro:bit).
+Extensión MakeCode para SmartTEAM5 (micro:bit).
 
 ## Uso como extensión
 
@@ -8,14 +8,14 @@ Extensión MakeCode para SmartTEAM4 (micro:bit).
 2. Crea un **Nuevo proyecto**
 3. Ve a **Extensiones** (icono de engranaje)
 4. Pega la URL del repositorio de GitHub:
-   `https://github.com/bscelza-logos/SmartTEAM_ext4`
+   `https://github.com/bscelza-logos/SmartTEAM_ext5`
 5. Confirma la importación (versión actual: **2.0.0**)
 
 ### Actualizar la extensión en un proyecto existente
 
 MakeCode puede cachear extensiones importadas desde GitHub. Si no ves los bloques nuevos:
 
-1. Eliminá la extensión **ext4** en **Extensiones**.
+1. Eliminá la extensión **ext5** en **Extensiones**.
 2. Volvé a importar la URL de GitHub.
 3. Confirmá que la versión sea **2.0.0**.
 
@@ -53,20 +53,20 @@ Esta extensión no implementa WebUSB; lo hace MakeCode al pulsar **Descargar** o
 Para pedir cambios con precisión, usamos esta jerarquía. Ejemplo con una extensión como la de tu captura:
 
 ```
-Extensión          →  SmartTEAM4
+Extensión          →  SmartTEAM5
   Categoría        →    SALIDAS
-    Subcategoría   →      LED
-      Bloque       →        LED Pin … Estado …
+    Subcategoría   →      Salidas L5
+      Bloque       →        LED Puerto … Estado …
 ```
 
 ### Las 4 piezas principales
 
-| Nivel | Nombre que usamos | Dónde se ve | En SmartTEAM4 |
+| Nivel | Nombre que usamos | Dónde se ve | En SmartTEAM5 |
 |-------|-------------------|-------------|---------------|
-| 1 | **Extensión** | Al importar desde GitHub | **SmartTEAM4** |
-| 2 | **Categoría** | Fila en la caja de herramientas (izquierda) | **SmartTEAM4** |
-| 3 | **Subcategoría** | Encabezado dentro del panel al abrir una categoría | **Sensores**, **Salidas**, **Motores**, **OLED** |
-| 4 | **Bloque** | Pieza que arrastrás al workspace | `BOTÓN en el pin …`, `LED Pin … Estado …` |
+| 1 | **Extensión** | Al importar desde GitHub | **SmartTEAM5** |
+| 2 | **Categoría** | Fila en la caja de herramientas (izquierda) | **SmartTEAM5** |
+| 3 | **Subcategoría** | Encabezado dentro del panel al abrir una categoría | **Sensores L5**, **Salidas L5**, **Motores L5**, **OLED L5**, **Especiales L5** |
+| 4 | **Bloque** | Pieza que arrastrás al workspace | `BOTÓN en el puerto …`, `LED Puerto … Estado …` |
 
 En MakeCode, las subcategorías se llaman **groups** (`//% groups=[…]` en la categoría, `//% group="…"` en cada bloque).
 
@@ -76,18 +76,18 @@ Cuando hablemos de un bloque concreto, también podemos nombrar:
 
 | Parte | Nombre | Ejemplo |
 |-------|--------|---------|
-| Texto visible en el bloque | **Texto del bloque** | `Initialize OLED` / `LED Pin %pin Estado %estado` |
-| Identificador interno | **Block ID** | `ext4_led`, `ext4_button_sensor`, `ext4_motor_run` |
-| Nombre en el código TypeScript | **Función** | `ext4BotonEnPin()`, `led()` |
-| Desplegables o casillas | **Parámetros** | `%pin`, `%estado`, `%text` |
-| Lista de opciones fijas | **Menú / enum** | `ON` / `OFF`, `P0` / `P1`… |
+| Texto visible en el bloque | **Texto del bloque** | `Escribir … en la fila … columna …` / `LED Puerto %puerto Estado %estado` |
+| Identificador interno | **Block ID** | `ext5_led`, `ext5_button_sensor`, `ext5_motor_move` |
+| Nombre en el código TypeScript | **Función** | `ext5BotonEnPin()`, `led()` |
+| Desplegables o casillas | **Parámetros** | `%puerto`, `%estado`, `%texto` |
+| Lista de opciones fijas | **Menú / enum** | `ON` / `OFF`, `P1` / `P2`… |
 
 ### Cómo pedirme algo (plantillas)
 
-- *“Agregá un **bloque** `mostrar mensaje` en la **subcategoría** Pantalla OLED de **SALIDAS**”*
-- *“Renombrá la **categoría** SmartTEAM4 a …”*
+- *“Agregá un **bloque** `mostrar mensaje` en la **subcategoría** OLED L5 de **SmartTEAM5**”*
+- *“Renombrá la **categoría** SmartTEAM5 a …”*
 - *“Cambiá el **texto del bloque** LED a …”*
-- *“La **extensión** debe llamarse SmartTEAM4 en MakeCode”*
+- *“La **extensión** debe llamarse SmartTEAM5 en MakeCode”*
 
 ### Dónde se configura cada cosa en este repo
 
@@ -97,21 +97,22 @@ Cuando hablemos de un bloque concreto, también podemos nombrar:
 | Categoría | `blocks/categorias/<nombre>.ts` | `//% block="…"` y `groups=[…]` |
 | Subcategoría | `config/categorias.ts` | `subcategorias` → `groups` / `group` |
 | Bloque | `blocks/<categoria>/<bloque>.ts` | `//% blockId=… block="…" group="…"` |
-| Traducción al español | `_locales/es/ext4-strings.json` | claves `{id:category}…` y `…\|block` |
+| Traducción al español | `_locales/es/ext5-strings.json` | claves `{id:category}…` y `…\|block` |
 
 ---
-Al crear o abrir un proyecto con esta extensión, estarán disponibles en la categoría **SmartTEAM4**:
+Al crear o abrir un proyecto con esta extensión, estarán disponibles en la categoría **SmartTEAM5**:
 
-- **Sensores** → `BOTÓN en el pin %pin`, comparación booleana del botón, `Ultrasonic Sensor %pin units %unit`
-- **Salidas** → `LED Pin %pin Estado %estado`
-- **Motores** → servos Geek I2C
-- **OLED** → pantalla I2C
+- **Sensores L5** → `BOTÓN en el puerto %puerto`, comparación booleana del botón, `Ultrasonido en el pin %puerto`
+- **Salidas L5** → `LED Puerto %puerto Estado %estado`
+- **Motores L5** → servos Geek I2C
+- **OLED L5** → pantalla I2C
+- **Especiales L5** → (sin bloques por ahora)
 
 ---
 
 ## Reglas para crear bloques
 
-Toda extensión SmartTEAM4 sigue estas reglas. **Respétalas antes de agregar un bloque nuevo.**
+Toda extensión SmartTEAM5 sigue estas reglas. **Respétalas antes de agregar un bloque nuevo.**
 
 ### 1. Constantes editables por bloque
 
@@ -131,9 +132,9 @@ Usa solo estas categorías por ahora:
 
 | Categoría | Archivo de categoría | Subcategorías | Carpeta de bloques |
 |-----------|---------------------|---------------|-------------------|
-| SmartTEAM4 | `blocks/categorias/smartteam4.ts` | Sensores, Salidas, Motores, OLED | `blocks/smartteam4/` |
+| SmartTEAM5 | `blocks/categorias/smartteam5.ts` | Sensores L5, Salidas L5, Motores L5, OLED L5, Especiales L5 | `blocks/smartteam5/` |
 
-Para cambiar subcategorías, edita `config/categorias.ts` → `subcategorias` y sincroniza `groups=[…]` en `blocks/categorias/smartteam4.ts`.
+Para cambiar subcategorías, edita `config/categorias.ts` → `subcategorias` y sincroniza `groups=[…]` en `blocks/categorias/smartteam5.ts`.
 
 ### 3. Iconos personalizados
 
@@ -158,7 +159,7 @@ icons/
 3. Sincroniza el **encabezado** y la línea **`//%`** con los valores de `config/bloques.ts`.
 4. Escribe el código de la función.
 5. Registra el archivo en **`pxt.json`** → array `"files"`.
-6. Agrega traducciones en **`_locales/es/ext4-strings.json`**.
+6. Agrega traducciones en **`_locales/es/ext5-strings.json`**.
 
 ### 5. Ejemplo de encabezado editable
 
@@ -169,7 +170,7 @@ icons/
 // ICONO:     icons/salidas/encender-luz.png  (FA: \uf0eb)
 // CATEGORÍA: SALIDAS
 // ─────────────────────────────────────────────────────────────────────────
-//% blockId=ext4_led_on block="encender luz en pin %pin" color="#E63022" icon="\uf0eb" weight=100
+//% blockId=ext5_led_on block="encender luz en pin %pin" color="#E63022" icon="\uf0eb" weight=100
 export function encenderLuz(pin: DigitalPin): void {
     pins.digitalWritePin(pin, 1);
 }
@@ -180,15 +181,15 @@ export function encenderLuz(pin: DigitalPin): void {
 ## Estructura del proyecto
 
 ```
-SmarTEAM_EXT4/
+SmarTEAM_EXT5/
 ├── config/
 │   ├── tipos.ts           # Tipos CategoriaId, BloqueConfig
 │   ├── categorias.ts      # COLOR, ICONO y CATEGORÍA editables
 │   └── bloques.ts         # Metadatos editables de cada bloque
 ├── icons/                 # Iconos personalizados (PNG/SVG)
 ├── blocks/
-│   ├── categorias/        # Definición de la categoría SmartTEAM4
-│   ├── smartteam4/        # Bloques SmartTEAM4 (sensores, salidas, motores, OLED…)
+│   ├── categorias/        # Definición de la categoría SmartTEAM5
+│   ├── smartteam5/        # Bloques SmartTEAM5 (sensores, salidas, motores, OLED…)
 │   ├── _plantilla.ts      # Plantilla para bloques nuevos
 │   └── ...
 ├── main.ts
