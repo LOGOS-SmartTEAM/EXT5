@@ -1,0 +1,5 @@
+{
+    "ext4_smartteam4.led": "Escribe el estado del LED en el puerto GPIO indicado.",
+    "Ext4Puerto": "Puerto GPIO SmartTEAM4 (P1–P4).",
+    "Ext4LedEstado": "Estado del LED: ON (0) u OFF (1)."
+}

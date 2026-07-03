@@ -1,0 +1,33 @@
+{
+    "name": "ext4",
+    "version": "2.0.0",
+    "description": "SmartTEAM4",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*",
+        "microphone": "*"
+    },
+    "files": [
+        "main.ts",
+        "blocks/categorias/smartteam4.ts",
+        "blocks/smartteam4/cantidad.ts",
+        "blocks/smartteam4/puertos.ts",
+        "blocks/smartteam4/boton.ts",
+        "blocks/smartteam4/ultrasonic.ts",
+        "blocks/smartteam4/LED.ts",
+        "blocks/smartteam4/motores.ts",
+        "blocks/smartteam4/oled.ts",
+        "main.blocks",
+        "README.md",
+        "_locales/es/ext4-strings.json",
+        "_locales/es/ext4-jsdoc-strings.json"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
