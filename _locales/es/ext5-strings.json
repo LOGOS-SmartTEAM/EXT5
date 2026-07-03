@@ -14,6 +14,7 @@
     "ext5_smartteam5.ext5BotonEnPin|block": "BOTÓN en el puerto %puerto",
     "ext5_smartteam5.ext5UltrasonicCm|block": "Ultrasonido en el pin %puerto",
     "ext5_smartteam5.ext5LuzEnPin|block": "LUZ en el pin %puerto",
+    "ext5_smartteam5.ext5PotenciometroEnPin|block": "POTENCIOMETRO en el pin %puerto",
     "Ext5Puerto|block": "Puerto GPIO",
     "ext5_smartteam5.led|block": "LED Puerto %puerto Estado %estado",
     "Ext5LedEstado|block": "Estado LED",

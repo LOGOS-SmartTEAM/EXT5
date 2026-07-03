@@ -39,6 +39,16 @@ const BLOQUES = {
         texto: "LUZ en el pin %puerto",
         weight: 0,
     },
+    potenciometroLeer: {
+        color: "#fcbb2b",
+        iconoFa: "\\uf042",
+        iconoArchivo: "icons/entradas/potenciometro.png",
+        categoria: "SMARTTEAM5",
+        subcategoria: "Sensores L5",
+        blockId: "ext5_potenciometro_sensor",
+        texto: "POTENCIOMETRO en el pin %puerto",
+        weight: 0,
+    },
     led: {
         color: "#fcbb2b",
         iconoFa: "\\uf0eb",
