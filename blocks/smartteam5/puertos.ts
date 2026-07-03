@@ -39,6 +39,20 @@ function puertoToGpioPin(puerto: Ext5Puerto): DigitalPin {
     }
 }
 
+function puertoToAnalogPin(puerto: Ext5Puerto): AnalogPin {
+    switch (puerto) {
+        case Ext5Puerto.P1: return AnalogPin.P0;
+        case Ext5Puerto.P2: return AnalogPin.P1;
+        case Ext5Puerto.P3: return AnalogPin.P2;
+        case Ext5Puerto.P4: return AnalogPin.P8;
+        case Ext5Puerto.P5: return AnalogPin.P12;
+        case Ext5Puerto.P6: return AnalogPin.P16;
+        default:
+            const _exhaustiveCheck: never = puerto;
+            return _exhaustiveCheck;
+    }
+}
+
 function puertoToUltrasonicTrigEcho(puerto: Ext5Puerto): { trig: DigitalPin; echo: DigitalPin } {
     switch (puerto) {
         case Ext5Puerto.P1: return { trig: DigitalPin.P13, echo: DigitalPin.P0 };

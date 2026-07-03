@@ -29,6 +29,16 @@ const PUERTO_GPIO_SIGNAL: Record<keyof typeof PUERTOS_GPIO, number> = {
     P6: 16,
 };
 
+/** Mismo pin físico que PUERTO_GPIO_SIGNAL, pero tipado para lectura analógica */
+const PUERTO_ANALOGICO: Record<keyof typeof PUERTOS_GPIO, number> = {
+    P1: 0,
+    P2: 1,
+    P3: 2,
+    P4: 8,
+    P5: 12,
+    P6: 16,
+};
+
 /** Par trig + echo para ultrasónico por puerto (orden: trig = Pin 1, echo = Pin 2) */
 const PUERTO_ULTRASONICO: Record<keyof typeof PUERTOS_GPIO, { trig: number; echo: number }> = {
     P1: { trig: 13, echo: 0 },

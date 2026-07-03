@@ -29,6 +29,16 @@ const BLOQUES = {
         texto: "Ultrasonido en el pin %puerto",
         weight: 0,
     },
+    luzLeer: {
+        color: "#fcbb2b",
+        iconoFa: "\\uf0eb",
+        iconoArchivo: "icons/entradas/luz.png",
+        categoria: "SMARTTEAM5",
+        subcategoria: "Sensores L5",
+        blockId: "ext5_luz_sensor",
+        texto: "LUZ en el pin %puerto",
+        weight: 0,
+    },
     led: {
         color: "#fcbb2b",
         iconoFa: "\\uf0eb",

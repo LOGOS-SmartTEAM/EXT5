@@ -13,6 +13,7 @@
         "blocks/smartteam5/puertos.ts",
         "blocks/smartteam5/boton.ts",
         "blocks/smartteam5/ultrasonic.ts",
+        "blocks/smartteam5/Sensor_Luz.ts",
         "blocks/smartteam5/LED.ts",
         "blocks/smartteam5/motores.ts",
         "blocks/smartteam5/oled.ts",

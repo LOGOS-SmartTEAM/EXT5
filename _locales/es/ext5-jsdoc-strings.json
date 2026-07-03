@@ -1,5 +1,6 @@
 {
     "ext5_smartteam5.led": "Escribe el estado del LED en el puerto GPIO indicado.",
+    "ext5_smartteam5.ext5LuzEnPin": "Lee el valor analógico del sensor de luz conectado al puerto indicado.",
     "Ext5Puerto": "Puerto GPIO SmartTEAM5 (P1–P4).",
     "Ext5LedEstado": "Estado del LED: ON (0) u OFF (1)."
 }
