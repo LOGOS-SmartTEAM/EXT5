@@ -40,7 +40,7 @@
     "Ext5Puerto.P4|block": "P3",
     "ext5_smartteam5.led|block": "LED Puerto %puerto Estado %estado",
     "ext5_smartteam5.ext5Helice|block": "HELICE %movimiento en el puerto %puerto",
-    "ext5_smartteam5.ext5ServoPosicionar|block": "Posicionar en el grado %grado el SERVO en el pin %puerto",
+    "ext5_smartteam5.ext5ServoPosicionar|block": "SERVO | Posicionar en el grado %grado en el puerto %puerto",
     "Ext5LedEstado|block": "Estado LED",
     "Ext5LedEstado.ON|block": "ON",
     "Ext5LedEstado.OFF|block": "OFF",

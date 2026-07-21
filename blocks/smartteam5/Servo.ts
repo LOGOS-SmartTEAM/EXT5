@@ -12,7 +12,7 @@ namespace ext5_smartteam5 {
      * @param puerto puerto GPIO, eg: Ext5Puerto.P1
      */
     //% blockId=ext5_servo_posicionar
-    //% block="Posicionar en el grado %grado el SERVO en el pin %puerto"
+    //% block="SERVO | Posicionar en el grado %grado en el puerto %puerto"
     //% grado.min=0 grado.max=180 grado.defl=90
     //% group="Salidas L5" color=#fcbb2b weight=65 blockGap=8
     export function ext5ServoPosicionar(grado: number, puerto: Ext5Puerto): void {

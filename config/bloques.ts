@@ -86,7 +86,7 @@ const BLOQUES = {
         categoria: "SMARTTEAM5",
         subcategoria: "Salidas L5",
         blockId: "ext5_servo_posicionar",
-        texto: "Posicionar en el grado %grado el SERVO en el pin %puerto",
+        texto: "SERVO | Posicionar en el grado %grado en el puerto %puerto",
         weight: 65,
     },
     motorMover: {
