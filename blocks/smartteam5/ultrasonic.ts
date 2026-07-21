@@ -1,32 +1,50 @@
 /**
- * Sensor ultrasónico — SmartTEAM5 / subcategoría Sensores L5
- * Origen: ICreateRobot main.ts → ping (blockId sonar_ping)
+ * Sensor ultrasónico I2C — SmartTEAM5 / subcategoría Sensores L5
+ * Conectado por bus I2C (sin puerto configurable)
  */
 
 namespace ext5_smartteam5 {
 
-    /**
-     * Lee la distancia en cm del sensor ultrasónico conectado al puerto indicado.
-     * @param puerto puerto GPIO, eg: Ext5Puerto.P1
-     */
-    //% blockId=ext5_ultrasonic_sensor block="Ultrasonido en el pin %puerto" group="Sensores L5" weight=0 color=#fcbb2b
-    export function ext5UltrasonicCm(puerto: Ext5Puerto): number {
-        return medirUltrasonicoCm(puerto);
+    // ── Constantes I2C — ajustar según el módulo real ────────────────
+    // Dirección I2C del sensor ultrasónico
+    // RCWL-9620 / Grove I2C ultrasónico: 0x57 (87)
+    // Cambiar si el escaneo I2C devuelve otra dirección
+    const ULTRASONIC_I2C_ADDR = 87      // 0x57
+
+    // Byte de comando para iniciar medición
+    // RCWL-9620: 0x01
+    const ULTRASONIC_CMD_TRIGGER = 0x01
+
+    // Tiempo de espera tras el trigger en ms
+    // RCWL-9620: 50ms
+    const ULTRASONIC_WAIT_MS = 50
+
+    // ── Lectura interna ──────────────────────────────────────────────
+
+    function medirI2CCm(): number {
+        // Enviar comando de trigger
+        let trigBuf = pins.createBuffer(1)
+        trigBuf[0] = ULTRASONIC_CMD_TRIGGER
+        pins.i2cWriteBuffer(ULTRASONIC_I2C_ADDR, trigBuf)
+
+        // Esperar medición
+        basic.pause(ULTRASONIC_WAIT_MS)
+
+        // Leer 2 bytes: distancia en mm (UInt16 big-endian)
+        let data = pins.i2cReadBuffer(ULTRASONIC_I2C_ADDR, 2)
+        const mm = (data[0] << 8) | data[1]
+        return Math.round(mm / 10)
     }
-}
 
-function medirUltrasonicoCm(puerto: Ext5Puerto): number {
-    const { trig, echo } = puertoToUltrasonicTrigEcho(puerto);
-    const maxCmDistance = 400;
+    // ── Bloques públicos ─────────────────────────────────────────────
 
-    pins.setPull(trig, PinPullMode.PullNone);
-    pins.digitalWritePin(trig, 0);
-    control.waitMicros(2);
-    pins.digitalWritePin(trig, 1);
-    control.waitMicros(10);
-    pins.digitalWritePin(trig, 0);
-
-    const d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
-    const distance = d * 34 / 2000;
-    return Math.round(distance);
+    /**
+     * Lee la distancia en centímetros del sensor ultrasónico I2C.
+     */
+    //% blockId=ext5_ultrasonic_sensor
+    //% block="Ultrasonido en el puerto IIC"
+    //% group="Sensores L5" color="#34c2eb" weight=10 blockGap=8
+    export function ext5UltrasonicCm(): number {
+        return medirI2CCm()
+    }
 }

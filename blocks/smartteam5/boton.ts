@@ -11,6 +11,8 @@ namespace ext5_smartteam5 {
      */
     //% blockId=ext5_button_sensor block="BOTÓN en el puerto %puerto" group="Sensores L5" weight=0 color=#fcbb2b
     export function ext5BotonEnPin(puerto: Ext5Puerto): number {
-        return pins.digitalReadPin(puertoToGpioPin(puerto));
+        const pin = puertoToGpioPin(puerto)
+        pins.setPull(pin, PinPullMode.PullUp)
+        return 1 - pins.digitalReadPin(pin)
     }
 }
