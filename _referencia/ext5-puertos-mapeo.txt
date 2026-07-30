@@ -1,0 +1,4 @@
+PUERTO 0 (P1) → señal P0  | trig P0,  echo P13
+PUERTO 1 (P2) → señal P1  | trig P1,  echo P14
+PUERTO 2 (P3) → señal P2  | trig P2,  echo P15
+PUERTO 3 (P4) → señal P8  | trig P8,  echo P7

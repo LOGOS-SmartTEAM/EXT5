@@ -1,32 +1,31 @@
 {
     "name": "ext5",
-    "version": "2.0.0",
-    "description": "SmartTEAM5",
+    "version": "3.0.0",
+    "description": "SmartTEAM 5 — extensión MakeCode para micro:bit",
     "license": "MIT",
     "dependencies": {
-        "core": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "main.ts",
-        "blocks/categorias/smartteam5.ts",
-        "blocks/smartteam5/puertos.ts",
-        "blocks/smartteam5/boton.ts",
-        "blocks/smartteam5/ultrasonic.ts",
-        "blocks/smartteam5/Sensor_Luz.ts",
-        "blocks/smartteam5/potenciometro.ts",
-        "blocks/smartteam5/LED.ts",
-        "blocks/smartteam5/Servo.ts",
-        "blocks/smartteam5/motores.ts",
-        "blocks/smartteam5/motorUnico.ts",
-        "blocks/smartteam5/helice.ts",
-        "blocks/smartteam5/DTH11.ts",
-        "blocks/smartteam5/oled.ts",
-        "blocks/smartteam5/mensaje.ts",
+        "blocks/categorias/bloques.ts",
+        "blocks/sabana/_util.ts",
+        "blocks/sabana/puertos.ts",
+        "blocks/sabana/mensaje.ts",
+        "blocks/sabana/ultrasonido.ts",
+        "blocks/sabana/boton.ts",
+        "blocks/sabana/dht11.ts",
+        "blocks/sabana/color.ts",
+        "blocks/sabana/potenciometro.ts",
+        "blocks/sabana/luz.ts",
+        "blocks/sabana/led.ts",
+        "blocks/sabana/oled.ts",
+        "blocks/sabana/motor_multicolor.ts",
+        "blocks/sabana/servo.ts",
+        "blocks/sabana/helice.ts",
+        "blocks/sabana/movimiento.ts",
         "main.blocks",
-        "README.md",
-        "_locales/es/ext5-strings.json",
-        "_locales/es/ext5-jsdoc-strings.json"
+        "README.md"
     ],
     "testFiles": [
         "test.ts"

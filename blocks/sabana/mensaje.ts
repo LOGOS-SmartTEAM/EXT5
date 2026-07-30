@@ -9,7 +9,7 @@
  *   (se vacía automáticamente al leerlo).
  */
 
-namespace ext5_smartteam5 {
+namespace bloques {
 
     const CODIGOS_MORSE: string[] = [
         "pl", "lppp", "lplp", "lpp", "p", "pplp", "llp", "pppp", "pp", "plll",
@@ -30,7 +30,7 @@ namespace ext5_smartteam5 {
      * Registra la pulsación del Botón A y acumula el código Morse (punto/línea)
      * de la letra en curso. Colocar dentro de un bucle "por siempre".
      */
-    //% blockId=ext5_mensaje_guardar block="Guardar mensaje" group="Especiales L5" weight=100 color=#9C27B0
+    //% blockId=ext5_mensaje_guardar block="Guardar mensaje" group="ESPECIAL" weight=100 color=#9C27B0
     export function ext5GuardarMensaje(): void {
         const presionadoAhora = input.buttonIsPressed(Button.A);
 
@@ -52,7 +52,7 @@ namespace ext5_smartteam5 {
      * al código acumulado y la agrega al mensaje decodificado.
      * Colocar dentro del mismo bucle "por siempre", después de "Guardar mensaje".
      */
-    //% blockId=ext5_mensaje_decodificar block="Decodificar mensaje" group="Especiales L5" weight=99 color=#9C27B0
+    //% blockId=ext5_mensaje_decodificar block="Decodificar mensaje" group="ESPECIAL" weight=99 color=#9C27B0
     export function ext5DecodificarMensaje(): void {
         if (_palabra.length == 0 || _presionado) return;
         if (input.runningTime() - _tiempo < PAUSA_LETRA_MS) return;
@@ -69,7 +69,7 @@ namespace ext5_smartteam5 {
     /**
      * Devuelve el mensaje decodificado acumulado hasta ahora y lo vacía.
      */
-    //% blockId=ext5_mensaje_decodificado block="Mensaje decodificado" group="Especiales L5" weight=98 color=#9C27B0
+    //% blockId=ext5_mensaje_decodificado block="Mensaje decodificado" group="ESPECIAL" weight=98 color=#9C27B0
     export function ext5MensajeDecodificado(): string {
         const resultado = _mensaje;
         _mensaje = "";
