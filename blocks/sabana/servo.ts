@@ -17,7 +17,7 @@ namespace bloques {
      * @param puerto puerto GPIO de la placa, eg: SabanaPuerto.P0
      */
     //% blockId=sabana_servo
-    //% block="Servo │ en el grado %grado en pin %puerto"
+    //% block="Servo │ %grado ° en pin %puerto"
     //% grado.min=0 grado.max=180 grado.defl=0
     //% group="MOTORES" color="#FFB800" weight=80 blockGap=8
     export function servo(grado: number, puerto: SabanaPuerto): void {
