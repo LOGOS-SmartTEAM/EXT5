@@ -1,6 +1,6 @@
 {
     "name": "ext5",
-    "version": "3.1.1",
+    "version": "3.0.2",
     "description": "SmartTEAM 5 — extensión MakeCode para micro:bit",
     "license": "MIT",
     "dependencies": {
@@ -9,21 +9,19 @@
     "files": [
         "main.ts",
         "blocks/categorias/bloques.ts",
-        "blocks/sabana/_util.ts",
         "blocks/sabana/puertos.ts",
-        "blocks/sabana/mensaje.ts",
         "blocks/sabana/ultrasonido.ts",
         "blocks/sabana/boton.ts",
         "blocks/sabana/dht11.ts",
-        "blocks/sabana/color.ts",
         "blocks/sabana/potenciometro.ts",
         "blocks/sabana/luz.ts",
+        "blocks/sabana/tira_rgb.ts",
         "blocks/sabana/led.ts",
         "blocks/sabana/oled.ts",
         "blocks/sabana/motor_multicolor.ts",
         "blocks/sabana/servo.ts",
-        "blocks/sabana/helice.ts",
         "blocks/sabana/movimiento.ts",
+        "blocks/sabana/morse.ts",
         "main.blocks",
         "README.md"
     ],

@@ -1,1 +1,3 @@
-// tests go here; this will not be compiled when this package is used as an extension.
+// Pruebas rápidas — esto NO se compila cuando la carpeta se usa como extensión.
+bloques.boton(SabanaPuerto.P0)
+bloques.led(bloques.SabanaEstadoOnOff.ON, SabanaPuerto.P1)

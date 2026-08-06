@@ -1,10 +1,4 @@
-/**
- * Bloques pantalla OLED — SmartTEAM5 / group PANTALLAS
- * Pantalla SSD1306 128×64px — fuente 8×16px — 4 filas × 16 columnas
- */
-
 namespace bloques {
-
     export enum SabanaOledFila {
         //% block="0"
         F0 = 0,
@@ -53,18 +47,18 @@ namespace bloques {
         C15 = 15,
     }
 
+    // ── Motor real portado de EXT4/blocks/smartteam4/oled.ts ──────────
+    // SSD1306 128×64px — fuente 8×16px — 4 filas × 16 columnas
+
     const OLED_ADDR = 60        // 0x3C
     const OLED_COLS = 16        // caracteres por fila
-    const OLED_ROWS = 4         // filas de texto
     const CHAR_W = 8            // píxeles ancho por carácter
-    const CHAR_H = 16           // píxeles alto por carácter (2 páginas)
 
     let _oledInitialized = false
 
-    // ── Fuente 8×16 (ASCII 32–127) ───────────────────────────────────
-    // Cada carácter = 16 bytes: 8 bytes página superior + 8 bytes página inferior
-    // Fuente estándar SSD1306 8×16
-    const FONT8x16: number[] = [
+    // Fuente 8×16 (ASCII 32–127). Cada carácter = 16 bytes: 8 bytes página
+    // superior + 8 bytes página inferior. Fuente estándar SSD1306 8×16.
+    const OLED_FONT8x16: number[] = [
         0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, // ' '
         0x00,0x00,0x00,0xF8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x33,0x30,0x00,0x00,0x00, // '!'
         0x00,0x10,0x0C,0x06,0x10,0x0C,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, // '"'
@@ -162,35 +156,24 @@ namespace bloques {
         0x00,0x06,0x01,0x01,0x02,0x02,0x04,0x04,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, // '~'
     ]
 
-    // ── Fuente extra: vocales con acento y ñ/Ñ (8×16px) ─────────────
-    // Orden: á, é, í, ó, ú, ñ, Ñ
-    // Cada entrada = 16 bytes (igual que FONT8x16)
-    const FONT_EXTRA_CODES: number[] = [225, 233, 237, 243, 250, 241, 209]
-    const FONT_EXTRA: number[] = [
-        // á (225) — base: a con acento agudo arriba
+    // Fuente extra: vocales con acento y ñ/Ñ (8×16px). Orden: á, é, í, ó, ú, ñ, Ñ
+    const OLED_FONT_EXTRA_CODES: number[] = [225, 233, 237, 243, 250, 241, 209]
+    const OLED_FONT_EXTRA: number[] = [
         0x00,0x00,0x80,0x80,0x80,0x80,0x00,0x00,
         0x00,0x19,0x24,0x22,0x22,0x22,0x3F,0x20,
-        // é (233) — base: e con acento agudo arriba
         0x00,0x00,0x80,0x80,0x80,0x80,0x00,0x00,
         0x00,0x1F,0x22,0x22,0x22,0x22,0x13,0x00,
-        // í (237) — base: i con acento agudo arriba
         0x00,0x80,0x98,0x98,0x00,0x00,0x00,0x00,
         0x00,0x20,0x20,0x3F,0x20,0x20,0x00,0x00,
-        // ó (243) — base: o con acento agudo arriba
         0x00,0x00,0x80,0x80,0x80,0x80,0x00,0x00,
         0x00,0x1F,0x20,0x20,0x20,0x20,0x1F,0x00,
-        // ú (250) — base: u con acento agudo arriba
         0x80,0x80,0x00,0x00,0x00,0x80,0x80,0x00,
         0x00,0x1F,0x20,0x20,0x20,0x10,0x3F,0x20,
-        // ñ (241) — base: n con tilde arriba
         0x80,0x80,0x00,0x80,0x80,0x80,0x00,0x00,
         0x20,0x3F,0x21,0x00,0x00,0x20,0x3F,0x20,
-        // Ñ (209) — base: N con tilde arriba
         0x08,0xF8,0x30,0xC0,0x00,0x08,0xF8,0x08,
         0x20,0x3F,0x20,0x00,0x07,0x18,0x3F,0x00,
     ]
-
-    // ── I2C helpers ──────────────────────────────────────────────────
 
     function oledCmd(cmd: number): void {
         let buf = pins.createBuffer(2)
@@ -207,8 +190,6 @@ namespace bloques {
         }
         pins.i2cWriteBuffer(OLED_ADDR, buf)
     }
-
-    // ── Inicialización ───────────────────────────────────────────────
 
     function initOled(): void {
         oledCmd(0xAE)       // display off
@@ -259,26 +240,20 @@ namespace bloques {
         }
     }
 
-    // ── Escritura de caracteres ──────────────────────────────────────
-
     // Obtiene los 16 bytes de bitmap para un código de carácter.
-    // Primero busca en FONT_EXTRA, luego en FONT8x16.
-    // Si no se encuentra, usa espacio (código 32).
     function getCharBitmap(code: number): number[] {
-        // Buscar en tabla extra (á é í ó ú ñ Ñ)
-        for (let i = 0; i < FONT_EXTRA_CODES.length; i++) {
-            if (FONT_EXTRA_CODES[i] === code) {
+        for (let i = 0; i < OLED_FONT_EXTRA_CODES.length; i++) {
+            if (OLED_FONT_EXTRA_CODES[i] === code) {
                 const base = i * 16
                 let bmp: number[] = []
-                for (let j = 0; j < 16; j++) bmp.push(FONT_EXTRA[base + j])
+                for (let j = 0; j < 16; j++) bmp.push(OLED_FONT_EXTRA[base + j])
                 return bmp
             }
         }
-        // Buscar en fuente ASCII estándar (32–126)
         const idx = (code >= 32 && code <= 126) ? code - 32 : 0
         const base = idx * 16
         let bmp: number[] = []
-        for (let j = 0; j < 16; j++) bmp.push(FONT8x16[base + j])
+        for (let j = 0; j < 16; j++) bmp.push(OLED_FONT8x16[base + j])
         return bmp
     }
 
@@ -287,7 +262,6 @@ namespace bloques {
         const pageTop = fila * 2
         const pixCol = col * CHAR_W
 
-        // Página superior (bytes 0–7)
         oledCmd(0xB0 | pageTop)
         oledCmd(0x00 | (pixCol & 0x0F))
         oledCmd(0x10 | (pixCol >> 4))
@@ -295,7 +269,6 @@ namespace bloques {
         for (let i = 0; i < 8; i++) top[i] = bmp[i]
         oledData(top)
 
-        // Página inferior (bytes 8–15)
         oledCmd(0xB0 | (pageTop + 1))
         oledCmd(0x00 | (pixCol & 0x0F))
         oledCmd(0x10 | (pixCol >> 4))
@@ -304,26 +277,11 @@ namespace bloques {
         oledData(bot)
     }
 
-    // ── Bloques públicos ─────────────────────────────────────────────
-
     /**
      * STV2-14 — Escribe texto en el OLED (I2C), fila 0-3, columna 0-15.
-     *
-     * Escribe la fila completa: borra la fila antes de escribir, así que no
-     * hace falta limpiar a mano entre actualizaciones.
-     *
-     * Soporta acentos españoles (á é í ó ú ñ Ñ) gracias a la tabla FONT_EXTRA.
-     *
-     * El enum SabanaColumna16 se mudó acá desde lcd.ts, que está fuera del
-     * alcance de esta extensión. Ver excepción en el índice maestro.
-     *
-     * Origen del código: _referencia/ext5-oled.ts -> showString()
-     *
-     * @param texto texto o número a mostrar, eg: "abc"
-     * @param fila fila del OLED (0-3), eg: SabanaOledFila.F0
-     * @param columna columna del OLED (0-15), eg: SabanaColumna16.C0
+     * Reutiliza el enum SabanaColumna16 definido en lcd.ts.
      */
-    //% blockId=sabana_oled_escribir
+    //% blockId=oled_escribir
     //% block="OLED │ Escribir %texto en fila %fila en columna %columna en pin I2C"
     //% texto.shadow=text texto.defl="abc"
     //% group="PANTALLAS" color="#35BFE9" weight=90 blockGap=8
@@ -340,10 +298,8 @@ namespace bloques {
 
     /**
      * STV2-15 — Borra todos los textos del OLED (I2C).
-     *
-     * Origen del código: _referencia/ext5-oled.ts -> clear()
      */
-    //% blockId=sabana_oled_borrar
+    //% blockId=oled_borrar
     //% block="OLED │ borrar textos en pin I2C"
     //% group="PANTALLAS" color="#35BFE9" weight=85 blockGap=8
     export function oledBorrar(): void {
