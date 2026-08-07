@@ -1,6 +1,6 @@
 {
     "name": "ext5",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "description": "SmartTEAM 5 — extensión MakeCode para micro:bit",
     "license": "MIT",
     "dependencies": {
