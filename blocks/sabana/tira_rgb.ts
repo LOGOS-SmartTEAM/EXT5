@@ -36,7 +36,7 @@ namespace bloques {
     //% led3.shadow="colorNumberPicker" led4.shadow="colorNumberPicker"
     //% led5.shadow="colorNumberPicker" led6.shadow="colorNumberPicker"
     //% inlineInputMode=inline
-    //% group="SALIDAS" color="#35BFE9" weight=95 blockGap=8
+    //% group="SALIDAS" color="#35BFE9" weight=95 blockGap=8 blockHidden=1
     export function tiraRgb(
         led1: number, led2: number, led3: number,
         led4: number, led5: number, led6: number
@@ -76,7 +76,7 @@ namespace bloques {
      */
     //% blockId=tira_rgb_apagar_todos
     //% block="Tira RGB │ apagar todos"
-    //% group="SALIDAS" color="#35BFE9" weight=90 blockGap=8
+    //% group="SALIDAS" color="#35BFE9" weight=90 blockGap=8 blockHidden=1
     export function tiraRgbApagarTodos(): void {
         for (let i = 0; i < 18; i++) {
             tiraRgbColores[i] = 0
