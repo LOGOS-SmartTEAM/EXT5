@@ -11,7 +11,7 @@ namespace bloques {
      */
     //% blockId=led
     //% block="LED │ Estado %estado en pin %puerto"
-    //% group="SALIDAS" color="#FFB800" weight=95 blockGap=8
+    //% group="SALIDAS" color="#FFB800" weight=100 blockGap=8
     export function led(estado: SabanaEstadoOnOff, puerto: SabanaPuerto): void {
         const pin = puertoToDigitalPin(puerto)
         pins.digitalWritePin(pin, estado == SabanaEstadoOnOff.ON ? 0 : 1)

@@ -5,7 +5,7 @@ namespace bloques {
      */
     //% blockId=boton
     //% block="Botón │ en pin %puerto"
-    //% group="SENSORES" color="#FFB800" weight=95 blockGap=8
+    //% group="SENSORES" color="#FFB800" weight=100 blockGap=8
     export function boton(puerto: SabanaPuerto): number {
         const pin = puertoToDigitalPin(puerto)
         pins.setPull(pin, PinPullMode.PullUp)

@@ -20,7 +20,7 @@ namespace bloques {
      * Traduce el código Morse acumulado a la letra correspondiente.
      */
     //% blockId=morse_traducir
-    //% block="Traducir mensaje" group="ESPECIAL" weight=99 color=#9C27B0
+    //% block="Traducir mensaje" group="ESPECIAL" weight=98 color=#9C27B0
     export function traducirMensaje(): void {
     }
 
@@ -28,7 +28,7 @@ namespace bloques {
      * Mensaje en código Morse (puntos/líneas) acumulado hasta ahora.
      */
     //% blockId=morse_mensaje
-    //% block="Mensaje MORSE" group="ESPECIAL" weight=98 color=#9C27B0
+    //% block="Mensaje MORSE" group="ESPECIAL" weight=99 color=#9C27B0
     export function mensajeMorse(): string {
         return ""
     }
