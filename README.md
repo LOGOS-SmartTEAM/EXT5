@@ -69,11 +69,23 @@ De Botón y Ultrasonido solo se incluyó el bloque redondo (reporter numérico);
 PADRE también define una variante lógica (hexágono) que queda fuera de esta
 extensión.
 
-### ⚠️ Los bloques MORSE (group ESPECIAL) son placeholders
+### Los bloques MORSE (group ESPECIAL)
 
-Los 5 bloques de Morse todavía **no tienen lógica interna real** — son
-visuales, a la espera de que se defina el codificador/decodificador
-definitivo en `STV2-PADRE`. No usan el Botón A todavía.
+Los 5 bloques ya tienen lógica real. No leen ningún pin directamente:
+`Guardar mensaje MORSE` se coloca dentro de un `si Botón en pin ... = 1
+entonces`, así funciona sin importar en qué puerto esté el botón.
+
+- Pulsación **< 500ms** al soltar = punto (`.`). **>= 500ms** = línea
+  (`_`) — la línea se escribe en vivo apenas se cumplen los 500ms
+  sosteniendo el botón, sin esperar a soltarlo.
+- **1000ms** de silencio total sin pulsar = fin de letra automático.
+- `Traducir mensaje` reprocesa todo el mensaje Morse acumulado hasta ese
+  momento y reconstruye el mensaje traducido completo (letras seguidas,
+  sin espacios — ej. `HOLACOMO`).
+- `Mensaje MORSE` y `Mensaje TRADUCIDO` devuelven como máximo los últimos
+  16 caracteres (el ancho de una fila del OLED), y siempre arrancan con
+  un espacio descartable (evita que se pierda el primer carácter en la
+  primera escritura al OLED tras encenderlo).
 
 ## Estructura del proyecto
 
