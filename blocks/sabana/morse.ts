@@ -4,18 +4,23 @@
  * Captura un mensaje Morse a partir de pulsaciones de botón y lo traduce
  * a texto:
  *   - Duración de la pulsación: < 500ms = punto ("."), >= 500ms = línea ("_").
- *     La línea se escribe en vivo apenas se cumplen los 500ms sosteniendo
- *     el botón (no hace falta esperar a soltarlo para verla).
+ *     No se escribe nada mientras el botón sigue apretado — se decide una
+ *     sola vez, recién al soltar, para no dejar guardado ningún símbolo
+ *     prematuro.
  *   - Fin de letra: 1000ms de silencio total sin pulsar nada.
  *   - Fin de palabra / traducción: se marca a mano con "Traducir mensaje",
  *     que reprocesa TODO el mensaje Morse acumulado y arma el texto
  *     traducido letra por letra, sin espacios entre ellas.
  *
- * IMPORTANTE: estos bloques NO leen ningún pin directamente — solo
- * reaccionan a si "Guardar mensaje MORSE" es llamado o no en cada vuelta
- * del loop ("para siempre"). El pin del botón lo decide quien envuelve el
- * bloque con un "si Botón en pin %puerto = 1 entonces", así que funcionan
- * sin importar en qué puerto esté conectado el botón.
+ * IMPORTANTE: a diferencia del resto de la extensión, el botón de Morse
+ * está fijo por diseño en el pin P0 (MORSE_PIN_BOTON1) — no es
+ * configurable por puerto como el resto de los componentes. El vigía en
+ * segundo plano lee ese pin directamente cada MORSE_INTERVALO_VIGIA_MS,
+ * así que la duración de la pulsación se mide con precisión real, sin
+ * depender de con qué frecuencia el programa del usuario llama a
+ * "Guardar mensaje MORSE" (esa llamada ahora solo sirve para arrancar el
+ * vigía la primera vez; el programa que la usa puede quedar exactamente
+ * igual, envuelta en un "si Botón en pin P0 = 1 entonces" o no).
  *
  * "Mensaje MORSE" y "Mensaje TRADUCIDO" siempre arrancan con un espacio
  * (workaround: en el OLED real se pierde la primera escritura I2C tras
@@ -38,10 +43,10 @@ namespace bloques {
         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     ]
 
-    const MORSE_UMBRAL_PUNTO_MS = 500      // duración < esto = punto, >= esto = línea (también dispara la línea en vivo)
-    const MORSE_SILENCIO_SUELTA_MS = 200   // sin llamadas por esto = se soltó el botón
+    const MORSE_PIN_BOTON1: DigitalPin = DigitalPin.P0  // botón de Morse fijo en P0, no configurable
+    const MORSE_UMBRAL_PUNTO_MS = 500      // duración < esto = punto, >= esto = línea
     const MORSE_TIMEOUT_LETRA_MS = 1000    // silencio total = fin de letra
-    const MORSE_INTERVALO_VIGIA_MS = 20    // frecuencia de sondeo del vigía
+    const MORSE_INTERVALO_VIGIA_MS = 20    // frecuencia de sondeo del vigía (lee el pin directamente)
     const MORSE_VENTANA_CHARS = 16         // máximo de caracteres a exponer (ancho de fila del OLED)
 
     let morseSimboloActual = ""        // "p"/"l" acumulados de la letra en curso
@@ -49,10 +54,8 @@ namespace bloques {
     let morseVector2 = " "             // Mensaje TRADUCIDO (letras, sin espacios); arranca con un espacio descartable
     let morsePresionado = false
     let morseInicioPulsacion = 0
-    let morseUltimaLlamada = 0
     let morseUltimaActividad = 0
     let morseVigiaActivo = false
-    let morseRayaEscritaEnVivo = false  // ya se escribió el "_" de esta pulsación mientras seguía apretada
 
     function morseDecodificar(codigo: string): string {
         for (let i = 0; i < MORSE_CODIGOS.length; i++) {
@@ -103,28 +106,29 @@ namespace bloques {
     }
 
     function morseVigilante(): void {
+        pins.setPull(MORSE_PIN_BOTON1, PinPullMode.PullUp)
         while (true) {
             basic.pause(MORSE_INTERVALO_VIGIA_MS)
             const ahora = input.runningTime()
+            const presionadoAhora = pins.digitalReadPin(MORSE_PIN_BOTON1) == 0
 
-            // Sostenida >= 500ms mientras sigue apretado: escribe la línea
-            // en vivo, sin esperar a que se suelte el botón.
-            if (morsePresionado && !morseRayaEscritaEnVivo && (ahora - morseInicioPulsacion) >= MORSE_UMBRAL_PUNTO_MS) {
-                morseSimboloActual += "l"
-                morseVector1 += "_"
-                morseRayaEscritaEnVivo = true
-            }
-
-            // Sin llamadas nuevas por MORSE_SILENCIO_SUELTA_MS: se soltó el botón.
-            if (morsePresionado && (ahora - morseUltimaLlamada) > MORSE_SILENCIO_SUELTA_MS) {
-                if (!morseRayaEscritaEnVivo) {
-                    // Se soltó antes de los 500ms: fue un punto.
+            if (presionadoAhora && !morsePresionado) {
+                // Flanco de bajada real en el pin: arranca la pulsación.
+                morsePresionado = true
+                morseInicioPulsacion = ahora
+            } else if (!presionadoAhora && morsePresionado) {
+                // Flanco de subida real: se soltó. Se decide punto o línea
+                // una sola vez, con la duración real medida — nada se
+                // escribe antes de este momento.
+                const duracion = ahora - morseInicioPulsacion
+                if (duracion < MORSE_UMBRAL_PUNTO_MS) {
                     morseSimboloActual += "p"
                     morseVector1 += "."
+                } else {
+                    morseSimboloActual += "l"
+                    morseVector1 += "_"
                 }
-                // Si ya se escribió la línea en vivo, no se agrega nada más.
                 morsePresionado = false
-                morseRayaEscritaEnVivo = false
                 morseUltimaActividad = ahora
             }
 
@@ -135,23 +139,16 @@ namespace bloques {
     }
 
     /**
-     * Registra una pulsación: colocar dentro de "si Botón en pin ... = 1
-     * entonces" para que se llame en cada vuelta del loop mientras el
-     * botón esté presionado. Un vigía en segundo plano infiere cuándo se
-     * soltó (por la ausencia de llamadas) y clasifica punto/línea según
-     * cuánto duró la pulsación.
+     * Arranca (la primera vez que se llama) el vigía que lee el pin del
+     * botón de Morse (P0) directamente y mide la duración real de cada
+     * pulsación. Se puede seguir llamando en cada vuelta del loop, dentro
+     * de un "si Botón en pin P0 = 1 entonces" o no — no hace falta
+     * cambiar el programa existente, esta llamada ya no necesita saber
+     * si el botón está presionado o no.
      */
     //% blockId=morse_guardar
     //% block="Guardar mensaje MORSE" group="ESPECIAL" weight=100 color=#9C27B0
     export function guardarMensajeMorse(): void {
-        const ahora = input.runningTime()
-        if (!morsePresionado) {
-            morsePresionado = true
-            morseInicioPulsacion = ahora
-            morseRayaEscritaEnVivo = false
-        }
-        morseUltimaLlamada = ahora
-
         if (!morseVigiaActivo) {
             morseVigiaActivo = true
             control.inBackground(morseVigilante)
@@ -204,6 +201,5 @@ namespace bloques {
         morseVector1 = " "
         morseVector2 = " "
         morsePresionado = false
-        morseRayaEscritaEnVivo = false
     }
 }

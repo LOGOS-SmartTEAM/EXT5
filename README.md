@@ -71,13 +71,16 @@ extensión.
 
 ### Los bloques MORSE (group ESPECIAL)
 
-Los 5 bloques ya tienen lógica real. No leen ningún pin directamente:
-`Guardar mensaje MORSE` se coloca dentro de un `si Botón en pin ... = 1
-entonces`, así funciona sin importar en qué puerto esté el botón.
+Los 5 bloques ya tienen lógica real. A diferencia del resto de los
+componentes de esta extensión, el botón de Morse está **fijo en el pin
+P0** (no es configurable por puerto): un vigía en segundo plano lee ese
+pin directamente, con precisión real, sin depender de con qué frecuencia
+el programa del usuario llama a `Guardar mensaje MORSE` (esa llamada solo
+arranca el vigía la primera vez).
 
 - Pulsación **< 500ms** al soltar = punto (`.`). **>= 500ms** = línea
-  (`_`) — la línea se escribe en vivo apenas se cumplen los 500ms
-  sosteniendo el botón, sin esperar a soltarlo.
+  (`_`) — no se escribe nada mientras el botón sigue apretado; se decide
+  una sola vez, recién al soltar.
 - **1000ms** de silencio total sin pulsar = fin de letra automático.
 - `Traducir mensaje` reprocesa todo el mensaje Morse acumulado hasta ese
   momento y reconstruye el mensaje traducido completo (letras seguidas,
