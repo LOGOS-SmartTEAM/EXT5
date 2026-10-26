@@ -1,22 +1,86 @@
-﻿# EXT5 - SmartTEAM 5
+# EXT5 — STEAMbit 5
 
-Extensión MakeCode para SmartTEAM 5 (micro:bit).
+Extensión MakeCode para micro:bit, categoría **STEAMbit 5**. Versión **4.0.0**.
 
-## Uso como extensión
+## Cómo agregarla en MakeCode
 
-1. Abre [makecode.microbit.org](https://makecode.microbit.org/)
-2. Crea un **Nuevo proyecto**
-3. Ve a **Extensiones** (icono de engranaje)
-4. Pega la URL del repositorio de GitHub:
-   `https://github.com/bscelza-logos/SmartTEAM_ext5`
-5. Confirma la importación
+1. En MakeCode, **Extensiones** → pegar `https://github.com/LOGOS-SmartTEAM/EXT5` y elegirla.
+2. Aparece la categoría **STEAMbit 5** en la caja de herramientas.
 
-### Actualizar la extensión en un proyecto existente
+### Actualizar en un proyecto existente
 
-MakeCode puede cachear extensiones importadas desde GitHub. Si no ves los bloques nuevos:
+Los proyectos quedan fijados a la versión con la que se agregó la extensión. Para tener la 4.0.0:
+en el Explorador del proyecto (debajo del simulador), actualizar la extensión, o quitarla y volver a agregarla.
 
-1. Eliminá la extensión **ext5** en **Extensiones**.
-2. Volvé a importar la URL de GitHub.
+## Idiomas
+
+Español, inglés y portugués: los bloques y sus ayudas se muestran en el idioma elegido en MakeCode
+(Configuración → Idioma). Cualquier otro idioma muestra inglés.
+
+## Bloques
+
+
+### SENSORES
+
+| Bloque | Qué hace |
+|---|---|
+| Botón │ en pin … | Devuelve 1 si el botón está presionado y 0 si está suelto. |
+| Potenciómetro │ en pin … | Lee la posición de la perilla (0 a 1023). |
+| Sensor de Luz │ en pin … | Mide la luz: 0 = oscuro, 1023 = mucha luz. |
+| Ultrasonido │ en pin I2C | Mide la distancia a un objeto en centímetros (0 a 200). |
+| … │ en pin I2C | Mide la temperatura (°C) o la humedad (%). |
+
+### SALIDAS
+
+| Bloque | Qué hace |
+|---|---|
+| LED │ Estado … en pin … | Prende o apaga el LED. |
+| LED │ Intensidad … en pin … | Ajusta el brillo del LED: 0 = apagado, 1023 = máximo. |
+
+### MOVIMIENTO
+
+| Bloque | Qué hace |
+|---|---|
+| … │ Velocidad … | Mueve el robot a la velocidad elegida (0 a 100). |
+| … │ Velocidad … por … cm | Avanza o retrocede los centímetros elegidos y se detiene. |
+| … │ Velocidad … ángulo de … | Gira el robot los grados elegidos y se detiene. |
+
+### MOTORES
+
+| Bloque | Qué hace |
+|---|---|
+| Hélice │ … en pin … | Prende o apaga la hélice. |
+| Motor │ … … en pin I2C  Velocidad … | Hace girar un motor. Con + elegís la velocidad (0 a 100). |
+| Servo │ …° en pin … | Mueve el servo al ángulo elegido (0 a 180°). |
+
+### PANTALLAS
+
+| Bloque | Qué hace |
+|---|---|
+| OLED │ Escribir … en fila … en columna … en pin I2C | Escribe un texto o un número en la pantalla OLED. |
+| OLED │ borrar textos en pin I2C | Borra todo lo escrito en la pantalla OLED. |
+
+### ESPECIAL
+
+| Bloque | Qué hace |
+|---|---|
+| Guardar mensaje MORSE | Empieza a leer el botón Morse en P0: corto = punto, largo = línea. |
+| Mensaje MORSE | El mensaje escrito en puntos y líneas. |
+| Traducir mensaje | Traduce el mensaje Morse a letras. |
+| Mensaje TRADUCIDO | El mensaje traducido a letras. |
+| Borrar MENSAJES | Borra el mensaje Morse y el mensaje traducido. |
+
+## Estructura
+
+```
+bloques.ts        ← todos los bloques (un solo archivo), generado desde STV2-PADRE
+main.ts           ← solo descripción
+test.ts           ← pruebas rápidas (no se incluyen al usar la extensión)
+_locales/es, pt   ← traducciones (el código está en inglés)
+pxt.json          ← nombre, versión y lista de archivos
+```
+
+Los bloques se corrigen en **STV2-PADRE** y se regenera este archivo.
 
 ## Simulador y conexión USB
 
@@ -48,66 +112,6 @@ Según la [especificación WebUSB](https://wicg.github.io/webusb/):
 Esta extensión no implementa WebUSB; lo hace MakeCode al pulsar **Descargar** o **Emparejar**.
 
 ---
-
-## Bloques disponibles
-
-Una sola categoría **SmartTEAM 5** (color `#EF506D`, icono Font Awesome
-`\uf1b3`). El diseño (textos, colores, `blockId`, enums) es una copia
-literal del subconjunto equivalente de `STV2-PADRE`, la extensión de
-referencia del equipo.
-
-| Group | Bloques | Color |
-|-------|---------|-------|
-| **SENSORES** | Ultrasonido (I2C) · Botón (GPIO) · DHT11 (I2C) · Sensor de Luz (GPIO) · Potenciómetro (GPIO) | `#35BFE9` I2C / `#FFB800` GPIO |
-| **SALIDAS** | LED · Tira RGB (encender 6 LEDs / ajustar R-G-B / apagar todos) | `#FFB800` / `#35BFE9` |
-| **PANTALLAS** | OLED (escribir texto / borrar) | `#35BFE9` |
-| **MOTORES** | Servo · Motor multicolor (individual, por color) | `#FFB800` / `#35BFE9` |
-| **MOVIMIENTO** | Movimiento simple · por distancia (cm) · girar (ángulo) | `#35BFE9` |
-| **ESPECIAL** | Guardar / Traducir / Borrar mensaje MORSE · Mensaje MORSE · Mensaje TRADUCIDO | `#9C27B0` |
-
-De Botón y Ultrasonido solo se incluyó el bloque redondo (reporter numérico);
-PADRE también define una variante lógica (hexágono) que queda fuera de esta
-extensión.
-
-### Los bloques MORSE (group ESPECIAL)
-
-Los 5 bloques ya tienen lógica real. A diferencia del resto de los
-componentes de esta extensión, el botón de Morse está **fijo en el pin
-P0** (no es configurable por puerto): un vigía en segundo plano lee ese
-pin directamente, con precisión real, sin depender de con qué frecuencia
-el programa del usuario llama a `Guardar mensaje MORSE` (esa llamada solo
-arranca el vigía la primera vez).
-
-- Pulsación **< 500ms** al soltar = punto (`.`). **>= 500ms** = línea
-  (`_`) — no se escribe nada mientras el botón sigue apretado; se decide
-  una sola vez, recién al soltar.
-- **1000ms** de silencio total sin pulsar = fin de letra automático.
-- `Traducir mensaje` reprocesa todo el mensaje Morse acumulado hasta ese
-  momento y reconstruye el mensaje traducido completo (letras seguidas,
-  sin espacios — ej. `HOLACOMO`).
-- `Mensaje MORSE` y `Mensaje TRADUCIDO` devuelven como máximo los últimos
-  16 caracteres (el ancho de una fila del OLED), y siempre arrancan con
-  un espacio descartable (evita que se pierda el primer carácter en la
-  primera escritura al OLED tras encenderlo).
-
-## Estructura del proyecto
-
-```
-EXT5/
-├── blocks/
-│   ├── categorias/bloques.ts   # categoría SmartTEAM 5 (nombre, color, icono, groups)
-│   └── sabana/                 # un archivo .ts por componente
-├── main.ts
-├── main.blocks
-├── pxt.json
-└── test.ts
-```
-
-## Editar esta extensión
-
-1. En MakeCode, usa **Importar** → **Importar URL**
-2. Pega la URL del repositorio de GitHub
-3. Edita los bloques o el código y sincroniza con GitHub
 
 ## Licencia
 
